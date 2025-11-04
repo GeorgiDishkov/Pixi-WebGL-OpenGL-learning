@@ -1,3 +1,5 @@
+import type { Camera } from "../types";
+
 export const baseConfig = {
   camera: {
     width: 800,
@@ -12,6 +14,9 @@ export const baseConfig = {
     block: "#BB0000",
     point: "#00BBFF",
   },
-  player: {},
-  enemyShips: [],
-} as const;
+  enemiesCount: 200,
+};
+
+export const camera: Camera = {
+  position: { x: 0, y: 0 },
+};
