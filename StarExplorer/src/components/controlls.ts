@@ -20,10 +20,14 @@ export const moveCharacterByInput = () => {
   let speed = player.speed;
   if (isHorizontalMovement && isVerticalMovement) speed *= Math.SQRT1_2;
 
-  if (currentInput[Input.Up]) player.position.y -= player.speed;
-  if (currentInput[Input.Left]) player.position.x -= player.speed;
-  if (currentInput[Input.Down]) player.position.y += player.speed;
-  if (currentInput[Input.Right]) player.position.x += player.speed;
+  if (currentInput[Input.Up] || currentInput[Input.ArrowUp])
+    player.position.y -= player.speed;
+  if (currentInput[Input.Left] || currentInput[Input.ArrowLeft])
+    player.position.x -= player.speed;
+  if (currentInput[Input.Down] || currentInput[Input.ArrowDown])
+    player.position.y += player.speed;
+  if (currentInput[Input.Right] || currentInput[Input.ArrowRight])
+    player.position.x += player.speed;
 };
 
 export const moveCharacterRandomly = (character: Player | Enemy) => {

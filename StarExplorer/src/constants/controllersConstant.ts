@@ -22,7 +22,7 @@ export const currentInput: Record<Input, boolean> = {
   [Input.Space]: false,
   [Input.Enter]: false,
   [Input.Control]: false,
-  [Input.ArrowUp]: false, // може да ги махнеш ако ползваш map
+  [Input.ArrowUp]: false,
   [Input.ArrowLeft]: false,
   [Input.ArrowDown]: false,
   [Input.ArrowRight]: false,
