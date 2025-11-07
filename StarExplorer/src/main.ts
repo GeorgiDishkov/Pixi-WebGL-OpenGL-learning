@@ -1,12 +1,12 @@
 import {
   moveCharacterByInput,
   moveCharacterRandomly,
-  movePlayerToTarget,
+  movePlayerToDestination,
   setupInput,
   setupMouse,
   updateCameraFollow,
 } from "./components/controlls";
-import { renderCharacter } from "./components/render";
+import { renderAbilityHUD, renderCharacter } from "./components/render";
 import {
   generateEnemies,
   renderBackground,
@@ -38,12 +38,15 @@ export const main = (canvas: HTMLCanvasElement) => {
 
     // controllers update
     setupMouse(canvas, enemies)
-    movePlayerToTarget()
-    // moveCharacterByInput();
+    movePlayerToDestination()
     updateCameraFollow();
+    // moveCharacterByInput();
 
     // render player
     renderCharacter(context, player);
+
+    //render HUD
+    renderAbilityHUD(context)
 
     requestAnimationFrame(animation);
   };

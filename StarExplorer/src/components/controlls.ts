@@ -57,30 +57,49 @@ export const updateCameraFollow = () => {
 
 
 export function setupMouse(canvas: HTMLCanvasElement, enemies: EnemyType[]) {
-  canvas.addEventListener("contextmenu", (e) => e.preventDefault()); // спираме контекстното меню
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+
+  let isRightMouseDown = false;
 
   canvas.addEventListener("mousedown", (event) => {
-    // Преобразуваме координатите на екрана в координати на света
     const worldX = event.offsetX + camera.position.x;
     const worldY = event.offsetY + camera.position.y;
 
-
-
     if (event.button === 2) {
-      // десен бутон → движение
-      player.isTargetMove = true
+      isRightMouseDown = true;
+      player.isTargetMove = true;
       player.targetDestination = { x: worldX, y: worldY };
     }
 
     if (event.button === 0) {
-      // ляв бутон → фокус върху враг
       findEnemyNearCursor(worldX, worldY, enemies);
     }
+  });
+
+  canvas.addEventListener("mousemove", (event) => {
+    if (!isRightMouseDown) return;
+
+    const worldX = event.offsetX + camera.position.x;
+    const worldY = event.offsetY + camera.position.y;
+
+    player.targetDestination = { x: worldX, y: worldY };
+  });
+
+  canvas.addEventListener("mouseup", (event) => {
+    if (event.button === 2) {
+      isRightMouseDown = false;
+      player.isTargetMove = false;
+    }
+  });
+
+  canvas.addEventListener("mouseleave", () => {
+    isRightMouseDown = false;
+    player.isTargetMove = false;
   });
 }
 
 
-export function movePlayerToTarget() {
+export function movePlayerToDestination() {
   if (!player.isTargetMove) return;
 
   const dx = player.targetDestination.x - player.position.x;
@@ -88,12 +107,10 @@ export function movePlayerToTarget() {
   const distance = Math.hypot(dx, dy);
 
   if (distance < 2) {
-    // достатъчно близо → спираме
     player.isTargetMove = false;
     return;
   }
 
-  // нормализирана посока
   const dirX = dx / distance;
   const dirY = dy / distance;
 

@@ -82,3 +82,29 @@ export type Projectile = {
   height: number,
   color: string,
 }
+
+export enum ProjectileEnum {
+  LASER = "laser",
+  ROCKET = "rocket",
+}
+
+export type ProjectileType = {
+  key: string
+  color: string
+  isActive: boolean
+  name: string
+  size: {
+    width: number
+    height: number
+  }
+  typeProjectile: ProjectileEnum
+  cooldown: number
+}
+
+export type PlayerHUDType = {
+  width: number
+  height: number
+  padding: number
+  possition: Vector2
+  abilities: ProjectileType[]
+}
