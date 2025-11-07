@@ -1,7 +1,9 @@
 import {
   moveCharacterByInput,
   moveCharacterRandomly,
+  movePlayerToTarget,
   setupInput,
+  setupMouse,
   updateCameraFollow,
 } from "./components/controlls";
 import { renderCharacter } from "./components/render";
@@ -12,6 +14,7 @@ import {
 } from "./components/setup";
 import { player } from "./constants/playerConstants";
 
+
 const canvas = document.getElementById("canvas-app") as HTMLCanvasElement;
 
 export const main = (canvas: HTMLCanvasElement) => {
@@ -19,7 +22,6 @@ export const main = (canvas: HTMLCanvasElement) => {
   if (!ctx) throw "Cannot get 2D context";
   const enemies = generateEnemies();
   setupInput();
-
   const animation = () => {
     // render on every frame
     const context = setupContext(canvas);
@@ -31,8 +33,13 @@ export const main = (canvas: HTMLCanvasElement) => {
       renderCharacter(context, enemy);
     }
 
+    // targetEnemy(enemies)
+
+
     // controllers update
-    moveCharacterByInput();
+    setupMouse(canvas, enemies)
+    movePlayerToTarget()
+    // moveCharacterByInput();
     updateCameraFollow();
 
     // render player

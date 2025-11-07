@@ -1,7 +1,11 @@
 import { baseConfig, camera } from "../constants/baseConfig";
 import { currentInput, KeyMap } from "../constants/controllersConstant";
 import { player } from "../constants/playerConstants";
-import { Input, type Enemy, type Player } from "../types";
+import { Input, type EnemyType, type PlayerType, type Vector2 } from "../types";
+import { findEnemyNearCursor } from "./warComponents/utils";
+
+
+
 
 export const setupInput = () => {
   const handleKey = (pressed: boolean) => (event: KeyboardEvent) => {
@@ -30,7 +34,7 @@ export const moveCharacterByInput = () => {
     player.position.x += player.speed;
 };
 
-export const moveCharacterRandomly = (character: Player | Enemy) => {
+export const moveCharacterRandomly = (character: PlayerType | EnemyType) => {
   const cyrcle = Math.PI * 2;
   const randomAngle = Math.random() * cyrcle;
 
@@ -50,3 +54,50 @@ export const updateCameraFollow = () => {
   camera.position.x -= baseConfig.camera.width * 0.5;
   camera.position.y -= baseConfig.camera.height * 0.5;
 };
+
+
+export function setupMouse(canvas: HTMLCanvasElement, enemies: EnemyType[]) {
+  canvas.addEventListener("contextmenu", (e) => e.preventDefault()); // спираме контекстното меню
+
+  canvas.addEventListener("mousedown", (event) => {
+    // Преобразуваме координатите на екрана в координати на света
+    const worldX = event.offsetX + camera.position.x;
+    const worldY = event.offsetY + camera.position.y;
+
+
+
+    if (event.button === 2) {
+      // десен бутон → движение
+      player.isTargetMove = true
+      player.targetDestination = { x: worldX, y: worldY };
+    }
+
+    if (event.button === 0) {
+      // ляв бутон → фокус върху враг
+      findEnemyNearCursor(worldX, worldY, enemies);
+    }
+  });
+}
+
+
+export function movePlayerToTarget() {
+  if (!player.isTargetMove) return;
+
+  const dx = player.targetDestination.x - player.position.x;
+  const dy = player.targetDestination.y - player.position.y;
+  const distance = Math.hypot(dx, dy);
+
+  if (distance < 2) {
+    // достатъчно близо → спираме
+    player.isTargetMove = false;
+    return;
+  }
+
+  // нормализирана посока
+  const dirX = dx / distance;
+  const dirY = dy / distance;
+
+  // движение
+  player.position.x += dirX * player.speed;
+  player.position.y += dirY * player.speed;
+}

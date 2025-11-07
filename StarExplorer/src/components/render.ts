@@ -1,9 +1,9 @@
 import { camera } from "../constants/baseConfig";
-import type { Enemy, Player } from "../types";
+import type { EnemyType, PlayerType } from "../types";
 
 export const renderCharacter = (
   context: CanvasRenderingContext2D,
-  character: Player | Enemy
+  character: PlayerType | EnemyType
 ) => {
   const halfSize = character.size * 0.5;
 
@@ -11,11 +11,12 @@ export const renderCharacter = (
   const y = character.position.y - halfSize;
   const size = character.size;
   const radius = character.radius;
+  const isFocused = character?.isFocused || false
 
   const xCameraDifference = x - camera.position.x;
   const yCameraDifference = y - camera.position.y;
 
-  context.fillStyle = character.color;
+  context.fillStyle = isFocused ? "green" : character.color;
   context.fillRect(xCameraDifference, yCameraDifference, size, size);
 
   context.beginPath();
