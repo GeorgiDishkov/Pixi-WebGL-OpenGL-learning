@@ -1,7 +1,7 @@
-import { EnemyType } from "../types";
+import { EnemyVariation } from "../types";
 
 export const ENEMY_CONFIGS = {
-  [EnemyType.BASIC]: {
+  [EnemyVariation.BASIC]: {
     speed: 1,
     size: 5,
     radius: 10,
@@ -12,8 +12,10 @@ export const ENEMY_CONFIGS = {
       damage: 10,
       attackSpeed: 1.5,
     },
+    isFocused: false,
+    isAlive: true,
   },
-  [EnemyType.NORMAL]: {
+  [EnemyVariation.NORMAL]: {
     speed: 2.5,
     size: 8,
     radius: 15,
@@ -24,8 +26,10 @@ export const ENEMY_CONFIGS = {
       damage: 15,
       attackSpeed: 1.25,
     },
+    isFocused: false,
+    isAlive: true,
   },
-  [EnemyType.BIG]: {
+  [EnemyVariation.BIG]: {
     speed: 0.8,
     size: 15,
     radius: 30,
@@ -36,6 +40,8 @@ export const ENEMY_CONFIGS = {
       damage: 20,
       attackSpeed: 1,
     },
+    isFocused: false,
+    isAlive: true,
   },
 };
 

@@ -39,7 +39,7 @@ export type PlayerAttackStats = {
   attackSpeed: number;
 };
 
-export type Player = {
+export type PlayerType = {
   position: Vector2;
   speed: number;
   color: string;
@@ -48,21 +48,23 @@ export type Player = {
   currentHealth: number;
   maxHealth: number;
   attack: PlayerAttackStats;
+  isTargetMove: boolean;
+  targetDestination: Vector2;
 };
 export type EnemyAttackStats = {
   damage: number;
   attackSpeed: number;
 };
 
-export enum EnemyType {
+export enum EnemyVariation {
   BASIC = "basic",
   NORMAL = "normal",
   BIG = "big",
 }
 
-export type Enemy = {
+export type EnemyType = {
   position: Vector2;
-  type: EnemyType;
+  type: EnemyVariation;
   speed: number;
   color: string;
   size: number;
@@ -70,4 +72,40 @@ export type Enemy = {
   currentHealth: number;
   maxHealth: number;
   attack: EnemyAttackStats;
+  isFocused: boolean;
+  isAlive: boolean;
+};
+
+export type Projectile = {
+  possition: Vector2;
+  width: number;
+  height: number;
+  color: string;
+};
+
+export enum ProjectileEnum {
+  LASER = "laser",
+  ROCKET = "rocket",
+}
+
+export type ProjectileType = {
+  id: number;
+  key: string;
+  color: string;
+  isActive: boolean;
+  name: string;
+  size: {
+    width: number;
+    height: number;
+  };
+  typeProjectile: ProjectileEnum;
+  cooldown: number;
+};
+
+export type PlayerHUDType = {
+  width: number;
+  height: number;
+  padding: number;
+  possition: Vector2;
+  abilities: ProjectileType[];
 };

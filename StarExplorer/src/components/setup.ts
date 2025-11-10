@@ -1,7 +1,7 @@
 import { baseConfig, camera } from "../constants/baseConfig";
 import { ENEMY_CONFIGS, ENEMY_RATIOS } from "../constants/enemysConfig";
 import { player } from "../constants/playerConstants";
-import { EnemyType, type Enemy } from "../types";
+import { EnemyVariation, type EnemyType } from "../types";
 
 export const setupContext = (canvas: HTMLCanvasElement) => {
   canvas.width = baseConfig.camera.width;
@@ -24,23 +24,23 @@ export const renderBackground = (context: CanvasRenderingContext2D) => {
   context.fillText(`camera - y: ${camera.position.y}`, 20, 100);
 };
 
-export const generateEnemies = (): Enemy[] => {
-  const enemies: Enemy[] = [];
+export const generateEnemies = (): EnemyType[] => {
+  const enemies: EnemyType[] = [];
   const total = baseConfig.enemiesCount;
 
   const counts = {
-    [EnemyType.BASIC]: Math.floor(total * ENEMY_RATIOS.basic),
-    [EnemyType.NORMAL]: Math.floor(total * ENEMY_RATIOS.normal),
-    [EnemyType.BIG]: Math.floor(total * ENEMY_RATIOS.big),
+    [EnemyVariation.BASIC]: Math.floor(total * ENEMY_RATIOS.basic),
+    [EnemyVariation.NORMAL]: Math.floor(total * ENEMY_RATIOS.normal),
+    [EnemyVariation.BIG]: Math.floor(total * ENEMY_RATIOS.big),
   };
 
   Object.entries(counts).forEach(([type, count]) => {
-    const enemyConfiguration = ENEMY_CONFIGS[type as EnemyType];
+    const enemyConfiguration = ENEMY_CONFIGS[type as EnemyVariation];
 
     for (let i = 0; i < count; i++) {
       enemies.push({
         ...enemyConfiguration,
-        type: type as EnemyType,
+        type: type as EnemyVariation,
         position: {
           x: -1000 + Math.random() * 2000,
           y: -1000 + Math.random() * 2000,
