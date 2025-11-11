@@ -53,6 +53,8 @@ export const main = (canvas: HTMLCanvasElement) => {
       renderCharacter(context, enemy);
     }
 
+    // targetEnemy(enemies)
+
     //updates
     setupMouse(canvas, enemies);
     movePlayerToDestination();
