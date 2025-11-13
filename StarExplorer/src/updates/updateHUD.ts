@@ -1,13 +1,13 @@
 import { PlayerHUD } from "../constants/HUDConfig";
-import { Input } from "../types";
+import { InputEnum } from "../types/enums";
 import { onPress } from "../utils/helpers";
 
 export function updateHUD() {
   const { abilities } = PlayerHUD;
 
-  if (onPress(Input.Key1)) {
+  if (onPress(InputEnum.Key1)) {
     abilities.forEach((ability) => {
-      if (ability.id === Number(Input.Key1)) {
+      if (ability.id === Number(InputEnum.Key1)) {
         ability.isActive = !ability.isActive;
       } else {
         ability.isActive = false;
@@ -15,9 +15,9 @@ export function updateHUD() {
     });
   }
 
-  if (onPress(Input.Key2)) {
+  if (onPress(InputEnum.Key2)) {
     abilities.forEach((ability) => {
-      if (ability.id === Number(Input.Key2)) {
+      if (ability.id === Number(InputEnum.Key2)) {
         ability.isActive = !ability.isActive;
       } else {
         ability.isActive = false;
@@ -25,9 +25,9 @@ export function updateHUD() {
     });
   }
 
-  if (onPress(Input.Key3)) {
+  if (onPress(InputEnum.Key3)) {
     abilities.forEach((ability) => {
-      if (ability.id === Number(Input.Key3)) {
+      if (ability.id === Number(InputEnum.Key3)) {
         ability.isActive = !ability.isActive;
       } else {
         ability.isActive = false;
@@ -35,9 +35,9 @@ export function updateHUD() {
     });
   }
 
-  if (onPress(Input.Key4)) {
+  if (onPress(InputEnum.Key4)) {
     abilities.forEach((ability) => {
-      if (ability.id === Number(Input.Key4)) {
+      if (ability.id === Number(InputEnum.Key4)) {
         ability.isActive = !ability.isActive;
       } else {
         ability.isActive = false;
@@ -45,9 +45,9 @@ export function updateHUD() {
     });
   }
 
-  if (onPress(Input.Key5)) {
+  if (onPress(InputEnum.Key5)) {
     abilities.forEach((ability) => {
-      if (ability.id === Number(Input.Key5)) {
+      if (ability.id === Number(InputEnum.Key5)) {
         ability.isActive = !ability.isActive;
       } else {
         ability.isActive = false;
@@ -55,9 +55,9 @@ export function updateHUD() {
     });
   }
 
-  if (onPress(Input.Key6)) {
+  if (onPress(InputEnum.Key6)) {
     abilities.forEach((ability) => {
-      if (ability.id === Number(Input.Key6)) {
+      if (ability.id === Number(InputEnum.Key6)) {
         ability.isActive = !ability.isActive;
       } else {
         ability.isActive = false;

@@ -1,8 +1,8 @@
+import { ProjectileEnum } from "../types/enums";
 import {
-  ProjectileEnum,
   type PlayerHUDType,
   type ProjectileType,
-} from "../types";
+} from "../types/types";
 import { baseConfig } from "./baseConfig";
 import { player } from "./playerConstants";
 

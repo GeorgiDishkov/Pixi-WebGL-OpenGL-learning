@@ -1,6 +1,6 @@
 import { camera } from "../constants/baseConfig";
 import { PlayerHUD } from "../constants/HUDConfig";
-import type { EnemyType, PlayerType } from "../types";
+import type { EnemyType, PlayerType } from "../types/types";
 
 export const renderCharacter = (
   context: CanvasRenderingContext2D,
@@ -72,7 +72,6 @@ export function renderAbilityHUD(context: CanvasRenderingContext2D) {
       );
     }
 
-    // име на умението (по-долу)
     context.fillStyle = "#ddd";
     context.font = "10px Arial";
     context.textAlign = "center";

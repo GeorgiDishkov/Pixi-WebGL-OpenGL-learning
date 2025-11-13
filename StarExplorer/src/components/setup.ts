@@ -1,7 +1,8 @@
 import { baseConfig, camera } from "../constants/baseConfig";
 import { ENEMY_CONFIGS, ENEMY_RATIOS } from "../constants/enemysConfig";
 import { player } from "../constants/playerConstants";
-import { EnemyVariation, type EnemyType } from "../types";
+import { EnemyVariationEnum, ProjectileEnum } from "../types/enums";
+import {   type EnemyType, type ProjectileInstance } from "../types/types";
 
 export const setupContext = (canvas: HTMLCanvasElement) => {
   canvas.width = baseConfig.camera.width;
@@ -24,23 +25,25 @@ export const renderBackground = (context: CanvasRenderingContext2D) => {
   context.fillText(`camera - y: ${camera.position.y}`, 20, 100);
 };
 
-export const generateEnemies = (): EnemyType[] => {
-  const enemies: EnemyType[] = [];
-  const total = baseConfig.enemiesCount;
+export const enemiesStack:EnemyType[] = []
 
-  const counts = {
-    [EnemyVariation.BASIC]: Math.floor(total * ENEMY_RATIOS.basic),
-    [EnemyVariation.NORMAL]: Math.floor(total * ENEMY_RATIOS.normal),
-    [EnemyVariation.BIG]: Math.floor(total * ENEMY_RATIOS.big),
+export const generateEnemies = () => {
+  const total = baseConfig.enemiesGenerationCount;
+
+  const counts: Record<EnemyVariationEnum, number> = {
+    [EnemyVariationEnum.BASIC]: Math.floor(total * ENEMY_RATIOS.basic),
+    [EnemyVariationEnum.NORMAL]: Math.floor(total * ENEMY_RATIOS.normal),
+    [EnemyVariationEnum.BIG]: Math.floor(total * ENEMY_RATIOS.big),
   };
 
-  Object.entries(counts).forEach(([type, count]) => {
-    const enemyConfiguration = ENEMY_CONFIGS[type as EnemyVariation];
+  (Object.entries(counts) as [EnemyVariationEnum, number][]).forEach(([type, count]) => {
+    const enemyConfiguration = ENEMY_CONFIGS[type];
 
     for (let i = 0; i < count; i++) {
-      enemies.push({
+      enemiesStack.push({
         ...enemyConfiguration,
-        type: type as EnemyVariation,
+        id: i,
+        type,
         position: {
           x: -1000 + Math.random() * 2000,
           y: -1000 + Math.random() * 2000,
@@ -48,6 +51,27 @@ export const generateEnemies = (): EnemyType[] => {
       });
     }
   });
-
-  return enemies;
 };
+
+
+export const projectileStack: ProjectileInstance[] = [];
+
+export const generateProjectiles = () => {
+  for (let i = 0; i < baseConfig.projectilesGenerationCount; i++) {
+    const projectile: ProjectileInstance = {
+      id: i,
+      type: ProjectileEnum.LASER,  
+      x: 0,
+      y: 0,
+      vx: 0, 
+      vy: 0, 
+      color: "red", 
+      size: { width: 5, height: 5 }, 
+      isFlying: 0,
+      speed: 10, 
+      damage: 10, 
+    };
+    projectileStack.push(projectile);
+  }
+};
+

@@ -1,5 +1,5 @@
 import { currentInput } from "../constants/controllersConstant";
-import type { Input } from "../types";
+import type { Input } from "../types/types";
 
 export const isActive = (input: Input) => currentInput[input];
 

@@ -1,4 +1,4 @@
-import type { EnemyType, PlayerType } from "../../types";
+import type { EnemyType, PlayerType } from "../../types/types";
 
 export function findDirection(player: PlayerType, enemy: EnemyType) {
   const xDirection = player.position.x - enemy.position.x;

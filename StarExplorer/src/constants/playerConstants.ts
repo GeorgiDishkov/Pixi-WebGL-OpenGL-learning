@@ -1,4 +1,4 @@
-import type { PlayerType } from "../types";
+import type { PlayerType } from "../types/types";
 import { baseConfig } from "./baseConfig";
 
 export const player: PlayerType = {

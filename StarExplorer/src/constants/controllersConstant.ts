@@ -1,33 +1,33 @@
-import { Input } from "../types";
+import { InputEnum } from "../types/enums";
 
-export const KeyMap: Record<string, Input> = {
-  w: Input.Up,
-  ArrowUp: Input.Up,
-  a: Input.Left,
-  ArrowLeft: Input.Left,
-  s: Input.Down,
-  ArrowDown: Input.Down,
-  d: Input.Right,
-  ArrowRight: Input.Right,
-  " ": Input.Space,
-  Enter: Input.Enter,
-  Control: Input.Control,
-  "1": Input.Key1,
-  "2": Input.Key2,
-  "3": Input.Key3,
-  "4": Input.Key4,
-  "5": Input.Key5,
-  "6": Input.Key6,
-  "7": Input.Key7,
-  "8": Input.Key8,
-  "9": Input.Key9,
-  "0": Input.Key0,
+export const KeyMap: Record<string, InputEnum> = {
+  w: InputEnum.Up,
+  ArrowUp: InputEnum.Up,
+  a: InputEnum.Left,
+  ArrowLeft: InputEnum.Left,
+  s: InputEnum.Down,
+  ArrowDown: InputEnum.Down,
+  d: InputEnum.Right,
+  ArrowRight: InputEnum.Right,
+  " ": InputEnum.Space,
+  Enter: InputEnum.Enter,
+  Control: InputEnum.Control,
+  "1": InputEnum.Key1,
+  "2": InputEnum.Key2,
+  "3": InputEnum.Key3,
+  "4": InputEnum.Key4,
+  "5": InputEnum.Key5,
+  "6": InputEnum.Key6,
+  "7": InputEnum.Key7,
+  "8": InputEnum.Key8,
+  "9": InputEnum.Key9,
+  "0": InputEnum.Key0,
 };
 
-export const currentInput: Record<Input, boolean> = Object.values(Input).reduce(
+export const currentInput: Record<InputEnum, boolean> = Object.values(InputEnum).reduce(
   (acc, key) => {
     acc[key] = false;
     return acc;
   },
-  {} as Record<Input, boolean>
+  {} as Record<InputEnum, boolean>
 );

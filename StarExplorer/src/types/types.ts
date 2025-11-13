@@ -1,29 +1,4 @@
-export enum Input {
-  Up = "w",
-  Left = "a",
-  Down = "s",
-  Right = "d",
-
-  ArrowUp = "ArrowUp",
-  ArrowLeft = "ArrowLeft",
-  ArrowDown = "ArrowDown",
-  ArrowRight = "ArrowRight",
-
-  Space = " ",
-  Enter = "Enter",
-  Control = "Control",
-
-  Key1 = "1",
-  Key2 = "2",
-  Key3 = "3",
-  Key4 = "4",
-  Key5 = "5",
-  Key6 = "6",
-  Key7 = "7",
-  Key8 = "8",
-  Key9 = "9",
-  Key0 = "0",
-}
+import type { EnemyVariationEnum, ProjectileEnum } from "./enums";
 
 export type Vector2 = {
   x: number;
@@ -56,21 +31,17 @@ export type EnemyAttackStats = {
   attackSpeed: number;
 };
 
-export enum EnemyVariation {
-  BASIC = "basic",
-  NORMAL = "normal",
-  BIG = "big",
-}
-
 export type EnemyType = {
+  id?: number
   position: Vector2;
-  type: EnemyVariation;
+  type: EnemyVariationEnum;
   speed: number;
   color: string;
   size: number;
   radius: number;
   currentHealth: number;
   maxHealth: number;
+  ability: ProjectileType;
   attack: EnemyAttackStats;
   isFocused: boolean;
   isAlive: boolean;
@@ -83,13 +54,8 @@ export type Projectile = {
   color: string;
 };
 
-export enum ProjectileEnum {
-  LASER = "laser",
-  ROCKET = "rocket",
-}
-
 export type ProjectileType = {
-  id: number;
+  id?: number
   key: string;
   color: string;
   isActive: boolean;
@@ -108,4 +74,18 @@ export type PlayerHUDType = {
   padding: number;
   possition: Vector2;
   abilities: ProjectileType[];
+};
+
+export type ProjectileInstance = {
+  id?: number;
+  type: ProjectileEnum;
+  x: number; // Позиция X, от която се изстрелва
+  y: number; // Позиция Y, от която се изстрелва
+  vx: number; // Скорост по X
+  vy: number; // Скорост по Y
+  color: string; // Цвят на projectile-а
+  size: { width: number; height: number }; // Размери
+  isFlying: number; // Статус дали лети или не
+  speed: number; // Скорост
+  damage: number; // Щети
 };

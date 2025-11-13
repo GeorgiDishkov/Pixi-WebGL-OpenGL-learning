@@ -1,6 +1,6 @@
 import { ENEMY_CONFIGS } from "../../constants/enemysConfig";
 import { player } from "../../constants/playerConstants";
-import type { EnemyType } from "../../types";
+import type { EnemyType } from "../../types/types";
 
 export function targetEnemy(enemies: EnemyType[]) {
   let closestEnemy = null;

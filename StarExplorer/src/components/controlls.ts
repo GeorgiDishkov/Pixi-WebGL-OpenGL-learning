@@ -1,17 +1,17 @@
 import { baseConfig, camera } from "../constants/baseConfig";
-import { currentInput, KeyMap } from "../constants/controllersConstant";
+import { currentInput } from "../constants/controllersConstant";
 import { PlayerHUD } from "../constants/HUDConfig";
 import { player } from "../constants/playerConstants";
-import { Input, type EnemyType, type PlayerType, type Vector2 } from "../types";
+import { InputEnum } from "../types/enums";
+import { type EnemyType, type PlayerType,  } from "../types/types";
 import { findEnemyNearCursor } from "./warComponents/utils";
 
 export const setupInput = () => {
   const handleKey = (pressed: boolean) => (event: KeyboardEvent) => {
-    const key = event.key as Input;
+    const key = event.key as InputEnum;
 
     console.log("key", key);
 
-    // Само ако клавишът съществува в нашия enum
     if (key in currentInput) {
       currentInput[key] = pressed;
     }
@@ -22,20 +22,19 @@ export const setupInput = () => {
   window.addEventListener("keydown", handleKey(true));
   window.addEventListener("keyup", handleKey(false));
 
-  // 💡 По-добра практика: да върнеш cleanup функция
   return () => {
     window.removeEventListener("keydown", handleKey(true));
     window.removeEventListener("keyup", handleKey(false));
   };
 };
-export const setupHUDClick = (canvas: HTMLCanvasElement) => {
+export const setupHUDClick = (canvas: HTMLCanvasElement ) => {
   const { possition, abilities, width, height } = PlayerHUD;
   canvas.addEventListener("click", (e) => {
     const rect = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
 
-    // Проверяваме дали сме кликнали вътре в HUD-а
+    // const focusedEnemy = 
     if (
       mouseX >= possition.x &&
       mouseX <= possition.x + width &&
@@ -47,12 +46,9 @@ export const setupHUDClick = (canvas: HTMLCanvasElement) => {
       const index = Math.floor((mouseX - possition.x) / abilityWidth);
 
       if (abilities[index]) {
-        // Деактивираме всички останали
         abilities.forEach((a) => (a.isActive = false));
 
-        // Активираме избраната
         abilities[index].isActive = true;
-
         console.log(`Selected ability: ${abilities[index].name}`);
       }
     }
@@ -61,18 +57,18 @@ export const setupHUDClick = (canvas: HTMLCanvasElement) => {
 
 export const moveCharacterByInput = () => {
   const isHorizontalMovement =
-    currentInput[Input.Left] || currentInput[Input.Right];
-  const isVerticalMovement = currentInput[Input.Up] || currentInput[Input.Down];
+    currentInput[InputEnum.Left] || currentInput[InputEnum.Right];
+  const isVerticalMovement = currentInput[InputEnum.Up] || currentInput[InputEnum.Down];
   let speed = player.speed;
   if (isHorizontalMovement && isVerticalMovement) speed *= Math.SQRT1_2;
 
-  if (currentInput[Input.Up] || currentInput[Input.ArrowUp])
+  if (currentInput[InputEnum.Up] || currentInput[InputEnum.ArrowUp])
     player.position.y -= player.speed;
-  if (currentInput[Input.Left] || currentInput[Input.ArrowLeft])
+  if (currentInput[InputEnum.Left] || currentInput[InputEnum.ArrowLeft])
     player.position.x -= player.speed;
-  if (currentInput[Input.Down] || currentInput[Input.ArrowDown])
+  if (currentInput[InputEnum.Down] || currentInput[InputEnum.ArrowDown])
     player.position.y += player.speed;
-  if (currentInput[Input.Right] || currentInput[Input.ArrowRight])
+  if (currentInput[InputEnum.Right] || currentInput[InputEnum.ArrowRight])
     player.position.x += player.speed;
 };
 

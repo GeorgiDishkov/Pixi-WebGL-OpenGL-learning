@@ -1,7 +1,7 @@
-import { EnemyVariation } from "../types";
+import { EnemyVariationEnum, ProjectileEnum } from "../types/enums";
 
 export const ENEMY_CONFIGS = {
-  [EnemyVariation.BASIC]: {
+  [EnemyVariationEnum.BASIC]: {
     speed: 1,
     size: 5,
     radius: 10,
@@ -12,10 +12,20 @@ export const ENEMY_CONFIGS = {
       damage: 10,
       attackSpeed: 1.5,
     },
+    ability: {
+      key: "basic-laser",
+      color: "rgba(223, 255, 80, 1)",
+      isActive: false,
+      name: "Laser Shot",
+      size: { width: 4, height: 12 },
+      typeProjectile: ProjectileEnum.LASER,
+      cooldown: 3, 
+    },
     isFocused: false,
     isAlive: true,
   },
-  [EnemyVariation.NORMAL]: {
+
+  [EnemyVariationEnum.NORMAL]: {
     speed: 2.5,
     size: 8,
     radius: 15,
@@ -26,10 +36,20 @@ export const ENEMY_CONFIGS = {
       damage: 15,
       attackSpeed: 1.25,
     },
+    ability: {
+      key: "normal-rocket",
+      color: "rgb(255, 180, 50)",
+      isActive: false,
+      name: "Mini Rocket",
+      size: { width: 6, height: 6 },
+      typeProjectile: ProjectileEnum.ROCKET,
+      cooldown: 5,
+    },
     isFocused: false,
     isAlive: true,
   },
-  [EnemyVariation.BIG]: {
+
+  [EnemyVariationEnum.BIG]: {
     speed: 0.8,
     size: 15,
     radius: 30,
@@ -40,11 +60,19 @@ export const ENEMY_CONFIGS = {
       damage: 20,
       attackSpeed: 1,
     },
+    ability: {
+      key: "big-laser-burst",
+      color: "rgba(255, 159, 50, 1)",
+      isActive: false,
+      name: "Laser Burst",
+      size: { width: 8, height: 20 },
+      typeProjectile: ProjectileEnum.LASER,
+      cooldown: 8,
+    },
     isFocused: false,
     isAlive: true,
   },
 };
-
 export const ENEMY_RATIOS = {
   basic: 0.5, // 50%
   normal: 0.3, // 30%

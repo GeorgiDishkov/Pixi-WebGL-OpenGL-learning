@@ -1,4 +1,4 @@
-import type { Camera } from "../types";
+import type { Camera } from "../types/types";
 
 export const baseConfig = {
   camera: {
@@ -14,7 +14,8 @@ export const baseConfig = {
     block: "#BB0000",
     point: "#00BBFF",
   },
-  enemiesCount: 200,
+  enemiesGenerationCount: 200,
+  projectilesGenerationCount: 400,
 };
 
 export const camera: Camera = {
