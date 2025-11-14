@@ -14,8 +14,8 @@ export const baseConfig = {
     block: "#BB0000",
     point: "#00BBFF",
   },
-  enemiesGenerationCount: 200,
-  projectilesGenerationCount: 400,
+  enemiesGenerationCount: 50,
+  projectilesGenerationCount: 200,
 };
 
 export const camera: Camera = {

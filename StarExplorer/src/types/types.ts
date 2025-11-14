@@ -26,13 +26,9 @@ export type PlayerType = {
   isTargetMove: boolean;
   targetDestination: Vector2;
 };
-export type EnemyAttackStats = {
-  damage: number;
-  attackSpeed: number;
-};
 
 export type EnemyType = {
-  id?: number
+  id: string;
   position: Vector2;
   type: EnemyVariationEnum;
   speed: number;
@@ -41,8 +37,7 @@ export type EnemyType = {
   radius: number;
   currentHealth: number;
   maxHealth: number;
-  ability: ProjectileType;
-  attack: EnemyAttackStats;
+  ability: AbilityType;
   isFocused: boolean;
   isAlive: boolean;
 };
@@ -54,18 +49,22 @@ export type Projectile = {
   color: string;
 };
 
-export type ProjectileType = {
-  id?: number
+export type AbilityType = {
+  id?: number;
   key: string;
-  color: string;
   isActive: boolean;
   name: string;
-  size: {
-    width: number;
-    height: number;
-  };
-  typeProjectile: ProjectileEnum;
+  typeProjectile: ProjectileType;
   cooldown: number;
+  _cooldownTimer: number;
+};
+
+export type ProjectileType = {
+  color: string;
+  size: { width: number; height: number };
+  speed: number;
+  damage: number;
+  projectileKind: ProjectileEnum;
 };
 
 export type PlayerHUDType = {
@@ -73,19 +72,27 @@ export type PlayerHUDType = {
   height: number;
   padding: number;
   possition: Vector2;
-  abilities: ProjectileType[];
+  abilities: AbilityType[];
 };
 
 export type ProjectileInstance = {
-  id?: number;
-  type: ProjectileEnum;
+  id?: string;
+  type: ProjectileType;
   x: number; // Позиция X, от която се изстрелва
   y: number; // Позиция Y, от която се изстрелва
   vx: number; // Скорост по X
   vy: number; // Скорост по Y
-  color: string; // Цвят на projectile-а
-  size: { width: number; height: number }; // Размери
-  isFlying: number; // Статус дали лети или не
-  speed: number; // Скорост
-  damage: number; // Щети
+  cooldown?: number; // През колко време спаун
+  isFlying: boolean; // Статус дали лети или не
+  enemyId?: string;
+  isFiredFromPlayer?: boolean;
+};
+
+export type spawnProjectileType = {
+  x: number;
+  y: number;
+  type: ProjectileType;
+  cooldown: number;
+  enemyId: string;
+  isFiredFromPlayer: boolean;
 };

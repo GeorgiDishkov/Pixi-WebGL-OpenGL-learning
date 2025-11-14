@@ -1,76 +1,98 @@
 import { ProjectileEnum } from "../types/enums";
-import {
-  type PlayerHUDType,
-  type ProjectileType,
-} from "../types/types";
+import { type PlayerHUDType, type AbilityType } from "../types/types";
 import { baseConfig } from "./baseConfig";
 import { player } from "./playerConstants";
 
-export const abilitiesConfigutation: ProjectileType[] = [
+export const abilitiesConfigutation: AbilityType[] = [
   {
     id: 1,
     key: "x1Laser",
-    size: {
-      width: 3,
-      height: 1,
-    },
-    name: "Slim Laser",
     isActive: true,
-    color: "#59c6fdff",
+    name: "Slim Laser",
     cooldown: player.attack.attackSpeed,
-    typeProjectile: ProjectileEnum.LASER,
+    _cooldownTimer: 0,
+    typeProjectile: {
+      speed: 60,
+      size: {
+        width: 3,
+        height: 1,
+      },
+      color: "#59c6fdff",
+      damage: player.attack.damage,
+      projectileKind: ProjectileEnum.LASER,
+    },
   },
   {
     id: 2,
     key: "x2Laser",
-    size: {
-      width: 2,
-      height: 1,
-    },
     name: "Normal Laser",
     isActive: false,
-    color: "#00aaff",
     cooldown: player.attack.attackSpeed,
-    typeProjectile: ProjectileEnum.LASER,
+    _cooldownTimer: 0,
+    typeProjectile: {
+      speed: 15,
+      size: {
+        width: 3,
+        height: 1,
+      },
+      color: "#59fdb9ff",
+      damage: player.attack.damage * 2,
+      projectileKind: ProjectileEnum.LASER,
+    },
   },
   {
     id: 3,
     key: "x3Laser",
-    size: {
-      width: 3,
-      height: 1,
-    },
     name: "Giant Laser",
     isActive: true,
-    color: "#0066ff",
     cooldown: player.attack.attackSpeed,
-    typeProjectile: ProjectileEnum.LASER,
+    _cooldownTimer: 0,
+    typeProjectile: {
+      speed: 20,
+      size: {
+        width: 3,
+        height: 1,
+      },
+      color: "#ff00bfff",
+      damage: player.attack.damage * 3,
+      projectileKind: ProjectileEnum.LASER,
+    },
   },
   {
     id: 4,
     key: "basicRocket",
-    size: {
-      width: 4,
-      height: 2,
-    },
     name: "Rocket",
     isActive: false,
-    color: "#ff6600",
     cooldown: 3,
-    typeProjectile: ProjectileEnum.ROCKET,
+    _cooldownTimer: 0,
+    typeProjectile: {
+      speed: 5,
+      size: {
+        width: 3,
+        height: 1,
+      },
+      color: "#ff6600",
+      damage: player.attack.damage * 5,
+      projectileKind: ProjectileEnum.ROCKET,
+    },
   },
   {
     id: 5,
     key: "heavyRocket",
-    size: {
-      width: 6,
-      height: 3,
-    },
     name: "Heavy Rocket",
     isActive: false,
-    color: "#ff3300",
     cooldown: 3 * 1.5,
-    typeProjectile: ProjectileEnum.ROCKET,
+    _cooldownTimer: 0,
+    typeProjectile: {
+      speed: 20,
+      size: {
+        width: 3,
+        height: 1,
+      },
+      color: "#ff3300",
+      damage: player.attack.damage * 7,
+      projectileKind: ProjectileEnum.ROCKET,
+    },
   },
 ];
 

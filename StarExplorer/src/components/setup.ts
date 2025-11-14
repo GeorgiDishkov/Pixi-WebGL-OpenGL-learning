@@ -2,7 +2,12 @@ import { baseConfig, camera } from "../constants/baseConfig";
 import { ENEMY_CONFIGS, ENEMY_RATIOS } from "../constants/enemysConfig";
 import { player } from "../constants/playerConstants";
 import { EnemyVariationEnum, ProjectileEnum } from "../types/enums";
-import {   type EnemyType, type ProjectileInstance } from "../types/types";
+import {
+  type EnemyType,
+  type ProjectileInstance,
+  type ProjectileType,
+  type spawnProjectileType,
+} from "../types/types";
 
 export const setupContext = (canvas: HTMLCanvasElement) => {
   canvas.width = baseConfig.camera.width;
@@ -25,7 +30,7 @@ export const renderBackground = (context: CanvasRenderingContext2D) => {
   context.fillText(`camera - y: ${camera.position.y}`, 20, 100);
 };
 
-export const enemiesStack:EnemyType[] = []
+export const enemiesStack: EnemyType[] = [];
 
 export const generateEnemies = () => {
   const total = baseConfig.enemiesGenerationCount;
@@ -36,42 +41,66 @@ export const generateEnemies = () => {
     [EnemyVariationEnum.BIG]: Math.floor(total * ENEMY_RATIOS.big),
   };
 
-  (Object.entries(counts) as [EnemyVariationEnum, number][]).forEach(([type, count]) => {
-    const enemyConfiguration = ENEMY_CONFIGS[type];
+  (Object.entries(counts) as [EnemyVariationEnum, number][]).forEach(
+    ([type, count]) => {
+      const enemyConfiguration = ENEMY_CONFIGS[type];
 
-    for (let i = 0; i < count; i++) {
-      enemiesStack.push({
-        ...enemyConfiguration,
-        id: i,
-        type,
-        position: {
-          x: -1000 + Math.random() * 2000,
-          y: -1000 + Math.random() * 2000,
-        },
-      });
+      for (let i = 0; i < count; i++) {
+        enemiesStack.push({
+          ...enemyConfiguration,
+          id: crypto.randomUUID(),
+          type: type,
+          position: {
+            x: -1000 + Math.random() * 2000,
+            y: -1000 + Math.random() * 2000,
+          },
+        });
+      }
     }
-  });
+  );
 };
-
 
 export const projectileStack: ProjectileInstance[] = [];
 
 export const generateProjectiles = () => {
   for (let i = 0; i < baseConfig.projectilesGenerationCount; i++) {
     const projectile: ProjectileInstance = {
-      id: i,
-      type: ProjectileEnum.LASER,  
+      id: crypto.randomUUID(),
+      type: {
+        color: "red",
+        speed: 10,
+        damage: 10,
+        size: { width: 5, height: 5 },
+        projectileKind: ProjectileEnum.LASER,
+      },
       x: 0,
       y: 0,
-      vx: 0, 
-      vy: 0, 
-      color: "red", 
-      size: { width: 5, height: 5 }, 
-      isFlying: 0,
-      speed: 10, 
-      damage: 10, 
+      vx: 0,
+      vy: 0,
+      isFlying: false,
     };
     projectileStack.push(projectile);
   }
 };
 
+export function spawnProjectile({
+  x,
+  y,
+  type,
+  cooldown,
+  enemyId,
+  isFiredFromPlayer,
+}: spawnProjectileType) {
+  const freeProjectile = projectileStack.find((p) => !p.isFlying);
+
+  if (!freeProjectile) return;
+
+  freeProjectile.x = x;
+  freeProjectile.y = y;
+  freeProjectile.cooldown = cooldown;
+
+  freeProjectile.isFlying = true;
+  freeProjectile.type = type;
+  freeProjectile.enemyId = enemyId;
+  freeProjectile.isFiredFromPlayer = isFiredFromPlayer;
+}

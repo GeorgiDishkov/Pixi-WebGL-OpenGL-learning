@@ -3,20 +3,16 @@ import { currentInput } from "../constants/controllersConstant";
 import { PlayerHUD } from "../constants/HUDConfig";
 import { player } from "../constants/playerConstants";
 import { InputEnum } from "../types/enums";
-import { type EnemyType, type PlayerType,  } from "../types/types";
+import { type EnemyType, type PlayerType } from "../types/types";
 import { findEnemyNearCursor } from "./warComponents/utils";
 
 export const setupInput = () => {
   const handleKey = (pressed: boolean) => (event: KeyboardEvent) => {
     const key = event.key as InputEnum;
 
-    console.log("key", key);
-
     if (key in currentInput) {
       currentInput[key] = pressed;
     }
-
-    console.log("Pressed:", key, "=>", pressed);
   };
 
   window.addEventListener("keydown", handleKey(true));
@@ -27,21 +23,20 @@ export const setupInput = () => {
     window.removeEventListener("keyup", handleKey(false));
   };
 };
-export const setupHUDClick = (canvas: HTMLCanvasElement ) => {
+export const setupHUDClick = (canvas: HTMLCanvasElement) => {
   const { possition, abilities, width, height } = PlayerHUD;
   canvas.addEventListener("click", (e) => {
     const rect = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
 
-    // const focusedEnemy = 
+    // const focusedEnemy =
     if (
       mouseX >= possition.x &&
       mouseX <= possition.x + width &&
       mouseY >= possition.y &&
       mouseY <= possition.y + height
     ) {
-      console.log("triggered");
       const abilityWidth = 75;
       const index = Math.floor((mouseX - possition.x) / abilityWidth);
 
@@ -49,7 +44,6 @@ export const setupHUDClick = (canvas: HTMLCanvasElement ) => {
         abilities.forEach((a) => (a.isActive = false));
 
         abilities[index].isActive = true;
-        console.log(`Selected ability: ${abilities[index].name}`);
       }
     }
   });
@@ -58,7 +52,8 @@ export const setupHUDClick = (canvas: HTMLCanvasElement ) => {
 export const moveCharacterByInput = () => {
   const isHorizontalMovement =
     currentInput[InputEnum.Left] || currentInput[InputEnum.Right];
-  const isVerticalMovement = currentInput[InputEnum.Up] || currentInput[InputEnum.Down];
+  const isVerticalMovement =
+    currentInput[InputEnum.Up] || currentInput[InputEnum.Down];
   let speed = player.speed;
   if (isHorizontalMovement && isVerticalMovement) speed *= Math.SQRT1_2;
 
