@@ -1,11 +1,8 @@
 import { enemiesStack, projectileStack } from "../components/setup";
-import { player } from "../constants/playerConstants";
 import { camera } from "../constants/baseConfig";
+import { player } from "../constants/playerConstants";
 
-export function updateProjectiles(
-  ctx: CanvasRenderingContext2D,
-  deltaTime: number
-) {
+export function updateProjectilesLogic(deltaTime: number) {
   projectileStack.forEach((p) => {
     if (!p.isFlying) return;
 
@@ -52,12 +49,5 @@ export function updateProjectiles(
       p.x += dirX * p.type.speed * deltaTime;
       p.y += dirY * p.type.speed * deltaTime;
     }
-
-    // --- Render с camera трансформация ---
-    const screenX = p.x - camera.position.x;
-    const screenY = p.y - camera.position.y;
-
-    ctx.fillStyle = p.type.color;
-    ctx.fillRect(screenX, screenY, p.type.size.width, p.type.size.height);
   });
 }

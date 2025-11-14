@@ -12,9 +12,9 @@ export const abilitiesConfigutation: AbilityType[] = [
     cooldown: player.attack.attackSpeed,
     _cooldownTimer: 0,
     typeProjectile: {
-      speed: 60,
+      speed: 100,
       size: {
-        width: 3,
+        width: 7,
         height: 1,
       },
       color: "#59c6fdff",
@@ -30,10 +30,10 @@ export const abilitiesConfigutation: AbilityType[] = [
     cooldown: player.attack.attackSpeed,
     _cooldownTimer: 0,
     typeProjectile: {
-      speed: 15,
+      speed: 90,
       size: {
-        width: 3,
-        height: 1,
+        width: 7,
+        height: 3,
       },
       color: "#59fdb9ff",
       damage: player.attack.damage * 2,
@@ -48,10 +48,10 @@ export const abilitiesConfigutation: AbilityType[] = [
     cooldown: player.attack.attackSpeed,
     _cooldownTimer: 0,
     typeProjectile: {
-      speed: 20,
+      speed: 90,
       size: {
-        width: 3,
-        height: 1,
+        width: 7,
+        height: 3,
       },
       color: "#ff00bfff",
       damage: player.attack.damage * 3,
@@ -66,10 +66,10 @@ export const abilitiesConfigutation: AbilityType[] = [
     cooldown: 3,
     _cooldownTimer: 0,
     typeProjectile: {
-      speed: 5,
+      speed: 60,
       size: {
-        width: 3,
-        height: 1,
+        width: 12,
+        height: 7,
       },
       color: "#ff6600",
       damage: player.attack.damage * 5,
@@ -84,10 +84,10 @@ export const abilitiesConfigutation: AbilityType[] = [
     cooldown: 3 * 1.5,
     _cooldownTimer: 0,
     typeProjectile: {
-      speed: 20,
+      speed: 45,
       size: {
-        width: 3,
-        height: 1,
+        width: 15,
+        height: 8,
       },
       color: "#ff3300",
       damage: player.attack.damage * 7,
