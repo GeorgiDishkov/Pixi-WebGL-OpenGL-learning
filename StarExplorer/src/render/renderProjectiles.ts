@@ -5,7 +5,6 @@ export function renderProjectiles(ctx: CanvasRenderingContext2D) {
   projectileStack.forEach((p) => {
     if (!p.isFlying) return;
 
-    // --- Render с camera трансформация ---
     const screenX = p.x - camera.position.x;
     const screenY = p.y - camera.position.y;
 

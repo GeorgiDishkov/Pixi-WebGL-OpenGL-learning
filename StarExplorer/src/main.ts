@@ -39,7 +39,6 @@ function render(context: CanvasRenderingContext2D) {
   movePlayerToDestination();
   renderProjectiles(context);
   for (const enemy of enemiesStack) {
-    // moveCharacterRandomly(enemy);
     renderCharacter(context, enemy);
   }
 

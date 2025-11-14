@@ -30,7 +30,6 @@ export const setupHUDClick = (canvas: HTMLCanvasElement) => {
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
 
-    // const focusedEnemy =
     if (
       mouseX >= possition.x &&
       mouseX <= possition.x + width &&
@@ -145,7 +144,6 @@ export function movePlayerToDestination() {
   const dirX = dx / distance;
   const dirY = dy / distance;
 
-  // движение
   player.position.x += dirX * player.speed;
   player.position.y += dirY * player.speed;
 }

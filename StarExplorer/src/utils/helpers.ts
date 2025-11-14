@@ -1,25 +1,24 @@
 import { currentInput } from "../constants/controllersConstant";
-import type { Input } from "../types/types";
+import type { InputEnum } from "../types/enums";
 
-export const isActive = (input: Input) => currentInput[input];
+export const isActive = (input: InputEnum) => currentInput[input];
 
-const prevInput: Record<Input, boolean> = { ...currentInput };
+const prevInput: Record<InputEnum, boolean> = { ...currentInput };
 
-export const onPress = (input: Input) => {
+export const onPress = (input: InputEnum) => {
   const activeNow = currentInput[input];
   const wasActive = prevInput[input];
   return activeNow && !wasActive;
 };
 
-export const onRelease = (input: Input) => {
+export const onRelease = (input: InputEnum) => {
   const activeNow = currentInput[input];
   const wasActive = prevInput[input];
   return !activeNow && wasActive;
 };
 
-// 🔄 Извиквай това веднъж на frame (в main game loop-а)x
 export const updateInputState = () => {
   for (const key in currentInput) {
-    prevInput[key as Input] = currentInput[key as Input];
+    prevInput[key as InputEnum] = currentInput[key as InputEnum];
   }
 };
